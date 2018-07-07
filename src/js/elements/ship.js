@@ -3,8 +3,8 @@ import Bullet from "./bullet.js";
 class Ship {
     constructor(size, x, y) {
         this.size = size;
-        this.x = x;
-        this.y = y;
+        this.pos = { x, y }
+        this.origPos = { x, y } // for ship reset
         this.heading = 90; // start facing upwards,
         this.rotation = 0;
         this.thrust = {
@@ -27,27 +27,23 @@ class Ship {
         return Math.sqrt( Math.pow(this.thrust.x, 2) + Math.pow(this.thrust.y, 2) );
     }
 
-    getPos() {
-        return {x: this.x, y: this.y};
-    }
-
     points() {
         return [
             {
-                x: this.x + 0.9 * this.size * Math.cos(this.angle()),
-                y: this.y - 0.9 * this.size * Math.sin(this.angle())
+                x: this.pos.x + 0.9 * this.size * Math.cos(this.angle()),
+                y: this.pos.y - 0.9 * this.size * Math.sin(this.angle())
             },
             {
-                x: this.x - 0.65 * this.size * (Math.cos(this.angle()) + Math.sin(this.angle())),
-                y: this.y + 0.65 * this.size * (Math.sin(this.angle()) - Math.cos(this.angle()))
+                x: this.pos.x - 0.65 * this.size * (Math.cos(this.angle()) + Math.sin(this.angle())),
+                y: this.pos.y + 0.65 * this.size * (Math.sin(this.angle()) - Math.cos(this.angle()))
             },
             {
-                x: this.x - 0.25 * this.size * Math.cos(this.angle()),
-                y: this.y + 0.25 * this.size * Math.sin(this.angle())
+                x: this.pos.x - 0.25 * this.size * Math.cos(this.angle()),
+                y: this.pos.y + 0.25 * this.size * Math.sin(this.angle())
             },
             {
-                x: this.x - 0.65 * this.size * (Math.cos(this.angle()) - Math.sin(this.angle())),
-                y: this.y + 0.65 * this.size * (Math.sin(this.angle()) + Math.cos(this.angle()))
+                x: this.pos.x - 0.65 * this.size * (Math.cos(this.angle()) - Math.sin(this.angle())),
+                y: this.pos.y + 0.65 * this.size * (Math.sin(this.angle()) + Math.cos(this.angle()))
             }
         ];
     }
@@ -82,12 +78,12 @@ class Ship {
     }
 
     adjustPosition(maxWidth, maxHeight) {
-        this.x += this.thrust.x;
-        this.y += this.thrust.y;
-        if (this.x < 0 - this.size/2) this.x = maxWidth + this.size/2;
-        if (this.y < 0 - this.size/2) this.y = maxHeight + this.size/2;
-        if (this.x > maxWidth + this.size/2) this.x = 0 - this.size/2;
-        if (this.y > maxHeight + this.size/2) this.y = 0 - this.size/2;
+        this.pos.x += this.thrust.x;
+        this.pos.y += this.thrust.y;
+        if (this.pos.x < 0 - this.size/2) this.pos.x = maxWidth + this.size/2;
+        if (this.pos.y < 0 - this.size/2) this.pos.y = maxHeight + this.size/2;
+        if (this.pos.x > maxWidth + this.size/2) this.pos.x = 0 - this.size/2;
+        if (this.pos.y > maxHeight + this.size/2) this.pos.y = 0 - this.size/2;
     }
 
     moveBullets(maxWidth, maxHeight) {
@@ -103,8 +99,8 @@ class Ship {
     tryFiring(speed, delay) {
         if (this.firing.on && this.firing.available) {
             const bullet = new Bullet(
-                this.x + this.size * 1.3 * Math.cos(this.angle()),
-                this.y - this.size * 1.3 * Math.sin(this.angle()),
+                this.pos.x + this.size * 1.3 * Math.cos(this.angle()),
+                this.pos.y - this.size * 1.3 * Math.sin(this.angle()),
                 this.heading,
                 speed + this.speed()
             )
@@ -140,21 +136,21 @@ class Ship {
             context.lineWidth = this.size / 5;
             context.beginPath();
             context.moveTo(
-                this.x - 0.65 * this.size * (Math.cos(this.angle()) + Math.sin(this.angle()))
+                this.pos.x - 0.65 * this.size * (Math.cos(this.angle()) + Math.sin(this.angle()))
                         - 0.1 * this.size * (Math.cos(this.angle()) - Math.sin(this.angle())),
-                this.y + 0.65 * this.size * (Math.sin(this.angle()) - Math.cos(this.angle()))
+                this.pos.y + 0.65 * this.size * (Math.sin(this.angle()) - Math.cos(this.angle()))
                         + 0.1 * this.size * (Math.sin(this.angle()) + Math.cos(this.angle()))
             );
             context.lineTo( // bottom centre
-                this.x - 0.25 * this.size * Math.cos(this.angle())
+                this.pos.x - 0.25 * this.size * Math.cos(this.angle())
                         + 0.3 * this.size * Math.cos(this.angle(-180)),
-                this.y + 0.25 * this.size * Math.sin(this.angle())
+                this.pos.y + 0.25 * this.size * Math.sin(this.angle())
                         + 0.3 * this.size * Math.sin(this.angle())
             );
             context.lineTo( // rear right
-                this.x - 0.65 * this.size * (Math.cos(this.angle()) - Math.sin(this.angle()))                    
+                this.pos.x - 0.65 * this.size * (Math.cos(this.angle()) - Math.sin(this.angle()))                    
                         - 0.1 * this.size * (Math.cos(this.angle()) + Math.sin(this.angle())),
-                this.y + 0.65 * this.size * (Math.sin(this.angle()) + Math.cos(this.angle()))
+                this.pos.y + 0.65 * this.size * (Math.sin(this.angle()) + Math.cos(this.angle()))
                         + 0.1 * this.size * (Math.sin(this.angle()) - Math.cos(this.angle()))
             );
             context.stroke();

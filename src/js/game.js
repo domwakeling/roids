@@ -41,7 +41,7 @@ const ship = new Ship(SHIP_SIZE, canv.width / 2, canv.height / 2);
 // get some roids
 let num_roids = ROID_NUM;
 for (let i = 0; i < num_roids; i++) {
-    const newPos = getSafeRoidLocation(canv.width, canv.height, ship.getPos(), SAFE_ZONE);
+    const newPos = getSafeRoidLocation(canv.width, canv.height, ship.pos, SAFE_ZONE);
     const r = new Roid(
         ROID_SIZES[0], 0, randomNumVertices(), newPos.x, newPos.y, randomHeading(), ROID_SPEED / FPS
     );
