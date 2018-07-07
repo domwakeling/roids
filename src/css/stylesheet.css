@@ -2,4 +2,11 @@
 
 body {
     font-family: "Bitwise";
+    color: white;
+    background-color: #222;
+}
+
+#content {
+    width: 800px;
+    margin: auto;
 }

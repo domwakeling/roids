@@ -7,8 +7,39 @@
     </head>
 
     <body>
-        <h1>'Roids</h1>
-        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        <div id="content">
+            <header>
+                <h1>'Roids</h1>
+            </header>
+            <main>
+                <canvas
+                    id="gameCanvas"
+                    width="800"
+                    height="500"
+                ></canvas>
+                <section>
+                    <h2>Controls</h2>
+                    <table>
+                        <tr>
+                            <td>left arrow</td>
+                            <td>Rotate left</td>
+                        </tr>
+                        <tr>
+                            <td>right arrow</td>
+                            <td>Rotate right</td>
+                        </tr>
+                        <tr>
+                            <td>up arrow</td>
+                            <td>Thrusters</td>
+                        </tr>
+                        <tr>
+                            <td>spacebar</td>
+                            <td>Fire</td>
+                        </tr>
+                    </table>
+                </section>
+            </main>
+        </div><!-- #content -->
         <script src="js/game.js" type="module"></script>
     </body>
 
