@@ -4,9 +4,18 @@ body {
     font-family: "Bitwise";
     color: white;
     background-color: #222;
+    font-size: 18px;
 }
 
 #content {
     width: 800px;
     margin: auto;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+td {
+    padding: 0.2em 0.5em 0.2em 0em;
 }
