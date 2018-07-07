@@ -2,8 +2,6 @@
 
 *An Asteroid game written in Javascript.*
 
----
-
 'Roids is an implementation of the classic [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game))
 video game, written in Javascript and presented as a web-page using a local server.
 
