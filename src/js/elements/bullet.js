@@ -1,8 +1,10 @@
 class Bullet {
-    constructor(x, y, heading, speed) {
+    constructor(x, y, heading, speed, maxDistance) {
         this.pos = { x, y };
         this.heading = heading;
         this.speed = speed;
+        this.distance = 0;
+        this.maxDistance = maxDistance;
     }
 
     angle() {
@@ -12,11 +14,21 @@ class Bullet {
     move(maxWidth, maxHeight) {
         this.pos.x += this.speed * Math.cos(this.angle());
         this.pos.y -= this.speed * Math.sin(this.angle());
-        if (this.pos.x < 0 || this.pos.x > maxWidth || this.pos.y < 0 || this.pos.y > maxHeight) {
-            return true;
-        } else {
-            return false;
+        if (this.pos.x < 0) {
+            this.pos.x += maxWidth;
+        } else if (this.pos.x > maxWidth) {
+            this.pos.x -= maxWidth;
         }
+        if (this.pos.y < 0) {
+            this.pos.y += maxHeight;
+        } else if (this.pos.y > maxHeight) {
+            this.pos.y -= maxHeight;
+        }
+        this.distance += this.speed;
+        if (this.distance > this.maxDistance) {
+            return true;
+        }
+        return false;
     }
 
     draw(context) {

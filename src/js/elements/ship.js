@@ -96,13 +96,14 @@ class Ship {
         }
     }
 
-    tryFiring(speed, delay) {
+    tryFiring(speed, delay, maxDistance) {
         if (this.firing.on && this.firing.available) {
             const bullet = new Bullet(
                 this.pos.x + this.size * 1.3 * Math.cos(this.angle()),
                 this.pos.y - this.size * 1.3 * Math.sin(this.angle()),
                 this.heading,
-                speed + this.speed()
+                speed + this.speed(),
+                maxDistance
             )
             this.bullets.push(bullet);
             this.firing.available = false;

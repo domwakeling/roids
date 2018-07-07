@@ -9,6 +9,10 @@ import {
     randomNumVertices
 } from "./utilities.js";
 
+// get canvas and context
+let canv = document.getElementById("gameCanvas");
+let ctx = canv.getContext("2d");
+
 // global globals
 const FPS = 30; // frames per second
 let running = true;
@@ -17,21 +21,18 @@ let running = true;
 const SHIP_SIZE = 15; // sizes ship
 const ROT_RATE = 300; // rotation rate, degrees per second
 const FRICTION = 0.91; // friction co-efficient
-const THRUST = 45; // acceleration rate, pixels per second per second
-const MAX_THRUST = 180// maximum thrust, pixels per second
+const THRUST = 40; // acceleration rate, pixels per second per second
+const MAX_THRUST = 160// maximum thrust, pixels per second
 const SAFE_ZONE = 150; // radius around ship where no roids will spawn
-const BULLET_SPEED = 200; // speed of bullets, pixels per second
-const BULLET_DELAY = 150; // bullet interval in miliseconds
+const BULLET_SPEED = 160; // speed of bullets, pixels per second
+const BULLET_DELAY = 250; // bullet interval in miliseconds
+const BULLET_DISTANCE = canv.width * 0.8; // // max distance bullets travel in pixels
 
 // roid globals
 const ROID_SIZES = [30, 18, 8]; // radii of different sizes
 const ROID_SPEED = 40; // pixles per second
 const ROID_NUM = 5; // number of starting roids, first level
 const roids = [];
-
-// get canvas and context
-let canv = document.getElementById("gameCanvas");
-let ctx = canv.getContext("2d");
 
 // get a ship
 const ship = new Ship(SHIP_SIZE, canv.width / 2, canv.height / 2);
@@ -73,7 +74,7 @@ function update() {
     ship.adjustPosition(canv.width, canv.height);
 
     // move bullets and check if firing
-    ship.tryFiring(BULLET_SPEED / FPS, BULLET_DELAY);
+    ship.tryFiring(BULLET_SPEED / FPS, BULLET_DELAY, BULLET_DISTANCE);
     ship.moveBullets(canv.width, canv.height);
 
     // move roids
