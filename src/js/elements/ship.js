@@ -3,7 +3,7 @@ import Bullet from "./bullet.js";
 class Ship {
     constructor(size, x, y) {
         this.size = size;
-        this.pos = { x, y }
+        this.pos = { x, y }; // pos = position (of centre of rotation)
         this.origPos = { x, y } // for ship reset
         this.heading = 90; // start facing upwards,
         this.rotation = 0;

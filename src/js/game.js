@@ -3,7 +3,6 @@ import Roid from "./elements/roid.js";
 import {
     distance,
     extractBulletPos,
-    extractRoidPos,
     getSafeRoidLocation,
     keyDown,
     keyUp,
@@ -85,11 +84,10 @@ function update() {
     if (roids.length > 0 && ship.bullets.length > 0) {
         // iterate through roids backwards so we can pop them reliably
         for (let i = roids.length - 1; i >= 0; i--) {
-            const roidPos = extractRoidPos(roids[i]);
             // iterate through bullets backwards so we can pop them reliably
             for (let j = ship.bullets.length - 1; j >= 0; j--) {
                 const bulletPos = extractBulletPos(ship.bullets[j]);
-                if (distance(roidPos, bulletPos) <= (roids[i].radius + 2)) {
+                if (distance(roids[i].pos, bulletPos) <= (roids[i].radius + 2)) {
                     if (roids[i].sizeClass < (ROID_SIZES.length - 1) ) {
                         const newSizeClass = roids[i].sizeClass + 1;
                         const newRoidA = roids[i].spawn(
@@ -112,9 +110,8 @@ function update() {
     // check for roid hitting ship
     const checkPoints = ship.collisionCheckpoints();
     roids.forEach((roid) => {
-        const roidPos = extractRoidPos(roid);
         checkPoints.forEach((point) => {
-            if (distance(roidPos, point) <= roid.radius) {
+            if (distance(roid.pos, point) <= roid.radius) {
                 running = false;
             }
         });
