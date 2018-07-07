@@ -2,7 +2,6 @@ import Ship from "./elements/ship.js";
 import Roid from "./elements/roid.js";
 import {
     distance,
-    extractBulletPos,
     getSafeRoidLocation,
     keyDown,
     keyUp,
@@ -86,8 +85,7 @@ function update() {
         for (let i = roids.length - 1; i >= 0; i--) {
             // iterate through bullets backwards so we can pop them reliably
             for (let j = ship.bullets.length - 1; j >= 0; j--) {
-                const bulletPos = extractBulletPos(ship.bullets[j]);
-                if (distance(roids[i].pos, bulletPos) <= (roids[i].radius + 2)) {
+                if (distance(roids[i].pos, ship.bullets[j].pos) <= (roids[i].radius + 2)) {
                     if (roids[i].sizeClass < (ROID_SIZES.length - 1) ) {
                         const newSizeClass = roids[i].sizeClass + 1;
                         const newRoidA = roids[i].spawn(

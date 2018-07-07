@@ -2,10 +2,6 @@ function distance(a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
 
-function extractBulletPos(bullet) {
-    return { x: bullet.x, y: bullet.y };
-}
-
 function getSafeRoidLocation(canvasWidth, canvasHeight, shipPos, safeDistance) {
     let newPos = {
         x: 0,
@@ -64,7 +60,6 @@ function randomNumVertices() {
 
 export {
     distance,
-    extractBulletPos,
     getSafeRoidLocation,
     keyDown,
     keyUp,
