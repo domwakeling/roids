@@ -22,9 +22,9 @@ let score = 0;
 // ship globals
 const SHIP_SIZE = 15; // sizes ship
 const ROT_RATE = 300; // rotation rate, degrees per second
-const FRICTION = 0.91; // friction co-efficient
+const FRICTION = 0.94; // friction co-efficient
 const THRUST = 40; // acceleration rate, pixels per second per second
-const MAX_THRUST = 160// maximum thrust, pixels per second
+const MAX_THRUST = 200// maximum thrust, pixels per second
 const SAFE_ZONE = 150; // radius around ship where no roids will spawn
 const BULLET_SPEED = 160; // speed of bullets, pixels per second
 const BULLET_DELAY = 250; // bullet interval in miliseconds
