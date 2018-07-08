@@ -9,13 +9,15 @@ import {
     randomNumVertices
 } from "./utilities.js";
 
-// get canvas and context
+// get canvas, score and context
 let canv = document.getElementById("gameCanvas");
 let ctx = canv.getContext("2d");
+let scoreBox = document.getElementById("score");
 
 // global globals
 const FPS = 30; // frames per second
 let running = true;
+let score = 0;
 
 // ship globals
 const SHIP_SIZE = 15; // sizes ship
@@ -26,10 +28,11 @@ const MAX_THRUST = 160// maximum thrust, pixels per second
 const SAFE_ZONE = 150; // radius around ship where no roids will spawn
 const BULLET_SPEED = 160; // speed of bullets, pixels per second
 const BULLET_DELAY = 250; // bullet interval in miliseconds
-const BULLET_DISTANCE = canv.width * 0.8; // // max distance bullets travel in pixels
+const BULLET_DISTANCE = canv.height * 0.9; // // max distance bullets travel in pixels
 
 // roid globals
 const ROID_SIZES = [30, 18, 8]; // radii of different sizes
+const ROID_SCORES = [10, 25, 50]; // points for each size
 const ROID_SPEED = 40; // pixles per second
 const ROID_NUM = 5; // number of starting roids, first level
 const roids = [];
@@ -98,6 +101,7 @@ function update() {
                         roids.push(newRoidA);
                         roids.push(newRoidB);
                     }
+                    score += ROID_SCORES[roids[i].sizeClass];
                     roids.splice(i, 1);
                     ship.bullets.splice(j, 1);
                     break;
@@ -122,6 +126,10 @@ function update() {
 
     // re-draw draw roids
     roids.forEach((roid) => { roid.draw(ctx); });
+
+    // updaate score on screen
+    scoreBox.innerText = `Score: ${score}`;
+
 }
 
 //game loop
