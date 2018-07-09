@@ -58,11 +58,27 @@ function randomNumVertices() {
     return Math.floor(Math.random() * 10) + 20;
 }
 
+function getHighScore() {
+    if (localStorage && localStorage.roidHighScore) {
+        return localStorage.roidHighScore;
+    } else {
+        return 0;
+    }
+}
+
+function saveHighScore(score) {
+    if (localStorage) {
+        localStorage.roidHighScore = score;
+    }
+}
+
 export {
     distance,
+    getHighScore,
     getSafeRoidLocation,
     keyDown,
     keyUp,
     randomHeading,
-    randomNumVertices
+    randomNumVertices,
+    saveHighScore
 }

@@ -2,11 +2,13 @@ import Ship from "./elements/ship.js";
 import Roid from "./elements/roid.js";
 import {
     distance,
+    getHighScore,
     getSafeRoidLocation,
     keyDown,
     keyUp,
     randomHeading,
-    randomNumVertices
+    randomNumVertices,
+    saveHighScore
 } from "./utilities.js";
 
 // get canvas, score and context
@@ -19,7 +21,7 @@ const highScoreBox = document.getElementById("highscore");
 const FPS = 30; // frames per second
 let running = true; // true when game is live
 let score = 0;
-let highScore = 0 // TODO: change this to find from store
+let highScore = getHighScore(); // TODO: change this to find from store
 const TIME_BETWEEN_ROUNDS = 3000; // time (miliseconds) before new roids spawn
 let respawnTriggered = false; // bool to check whether a respawn is underway
 
@@ -133,7 +135,10 @@ function update() {
                         roids.push(newRoidB);
                     }
                     score += ROID_SCORES[roids[i].sizeClass];
-                    if (score > highScore) highScore = score;
+                    if (score > highScore) {
+                        highScore = score;
+                        saveHighScore(score);
+                    }
                     roids.splice(i, 1);
                     ship.bullets.splice(j, 1);
                     break;
@@ -160,8 +165,8 @@ function update() {
     roids.forEach((roid) => { roid.draw(ctx); });
 
     // updaate score on screen
-    scoreBox.innerText = `Score: ${score}`;
-    highScoreBox.innerText = `High Score: ${highScore}`;
+    scoreBox.innerText = `Score ${score}`;
+    highScoreBox.innerText = `High Score ${highScore}`;
 
 }
 
