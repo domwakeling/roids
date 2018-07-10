@@ -58,7 +58,6 @@ function resetGame() {
     running = true;
 }
 
-
 // function for getting some roids
 function getNewRoids() {
     for (let i = 0; i < roidsThisRound; i++) {
@@ -167,7 +166,6 @@ function update() {
     // updaate score on screen
     scoreBox.innerText = `Score ${score}`;
     highScoreBox.innerText = `High Score ${highScore}`;
-
 }
 
 //game loop

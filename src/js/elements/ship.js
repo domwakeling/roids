@@ -161,7 +161,6 @@ class Ship {
     drawBullets(context) {
         this.bullets.forEach( bullet => {bullet.draw(context)});
     }
-
 }
 
 export default Ship
