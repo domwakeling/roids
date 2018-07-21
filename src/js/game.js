@@ -165,7 +165,7 @@ function update() {
 
     // updaate score on screen
     scoreBox.innerText = `Score ${score}`;
-    highScoreBox.innerText = `High Score ${highScore}`;
+    highScoreBox.innerText = `High ${highScore}`;
 }
 
 //game loop
